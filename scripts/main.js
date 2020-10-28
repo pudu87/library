@@ -1,5 +1,7 @@
 let myLibrary = [];
 
+const items = ["title", "author", "pages", "read"];
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -44,6 +46,12 @@ function showBooks() {
     table.appendChild(tr);
   })
 }
+
+const newBookBtn = document.querySelector('#new-book-btn');
+newBookBtn.addEventListener('click', () => {
+  const newBookForm = document.querySelector('#new-book-form');
+  newBookForm.hidden ? newBookForm.hidden = false : newBookForm.hidden = true;
+})
 
 let theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 309, true);
 addBookToLibrary(theHobbit);

@@ -55,6 +55,7 @@ function addBookToLibrary(book) {
   });
   createTDDelete(tr);
   table.appendChild(tr);
+  UpdateDeleteRow();
 }
 
 function createTDRead(book, item, td) {
@@ -70,8 +71,18 @@ function createTDDelete(tr) {
   let td = document.createElement('td');
   let btn = document.createElement('button');
   btn.textContent = "\u00D7";
+  btn.className = "delete-book";
   td.appendChild(btn);
   tr.appendChild(td);
+}
+
+function UpdateDeleteRow() {
+  document.querySelectorAll('.delete-book').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      let tr = e.target.closest('tr');
+      table.removeChild(tr);
+    });
+  });
 }
 
 // EVENTS

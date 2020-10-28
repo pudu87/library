@@ -24,15 +24,15 @@
       </table>
 
       <div class="new-book">
-        <button id="new-book-btn" type="button">New book</button>
+        <button type="button">New book</button>
 
-        <form id="new-book-form" hidden>
+        <form onsubmit="return submitForm()" hidden>
           <label for="title">Title:</label>
           <input type="text" id="title" name="title"><br>
           <label for="author">Author:</label>
           <input type="text" id="author" name="author"><br>
           <label for="pages">Pages:</label>
-          <input type="number" id="pages" name="pages"><br>
+          <input type="number" id="pages" name="pages" value="off"><br>
           <label for="read">Read?</label>
           <input type="checkbox" id="read" name="read"><br>
           <input type="submit" value="Create Book">

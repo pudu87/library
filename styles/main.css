@@ -21,15 +21,13 @@ table {
   width: 100%;
   margin-bottom: 50px;
 }
-
-td {
+table td {
   border-top: 1px solid #aaa;
 }
 
 .new-book {
   margin-top: 30px;
 }
-
 .new-book form > * {
   margin-bottom: 1em;
 }

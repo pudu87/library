@@ -17,13 +17,13 @@ h1 {
 table {
   width: 100%;
   margin-bottom: 50px;
-}
-td {
+  td {
   border-top: 1px solid #aaa;
+  }
 }
 .new-book {
   margin-top: 30px;
-}
-.new-book form > * {
+  form > * {
   margin-bottom: 1em;
+  }
 }

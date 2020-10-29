@@ -2,10 +2,10 @@ let myLibrary = [];
 
 // QUERY'S
 
-const table = document.querySelector('table');
-const newBookBtn = document.querySelector('.new-book button');
-const newBookForm = document.querySelector('.new-book form');
-const newBookInput = document.querySelectorAll('.new-book input');
+const table = document.querySelector("table");
+const newBookBtn = document.querySelector(".new-book button");
+const newBookForm = document.querySelector(".new-book form");
+const newBookInput = document.querySelectorAll(".new-book input");
 
 // CONSTRUCTORS
 
@@ -16,9 +16,15 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.info = function() {
+Book.prototype = {
+  constructor: Book,
+  showInfo: function() {
     let readInfo = this.read === true ? "already read" : "not read yet";
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.readInfo}.`;
+  },
+  toggleRead: function() {
+    this.read = this.read === true ? false : true;
+  }
 };
 
 // FUNCTIONS
@@ -42,52 +48,60 @@ function submitForm() {
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
-  let tr = document.createElement('tr');
+  let tr = document.createElement("tr");
   tr.className = `book-${myLibrary.length-1}`;
   Object.keys(book).forEach(item => {
-    let td = document.createElement('td');
+    let td = document.createElement("td");
     if (item == "read") {
-      createTDRead(book, item, td);
+      createReadCell(book, item, td);
     } else {
       td.textContent = book[item];
     }
     tr.appendChild(td);
   });
-  createTDDelete(tr);
+  createDeleteCell(tr);
   table.appendChild(tr);
-  UpdateDeleteRow();
 }
 
-function createTDRead(book, item, td) {
-  let span = document.createElement('span');
+function createReadCell(book, item, td) {
+  let span = document.createElement("span");
   span.textContent = book[item] === true ? "Yes" : "No";
   td.appendChild(span);
-  let btn = document.createElement('button');
+  let btn = document.createElement("button");
   btn.textContent = "change";
+  btn.className = "toggle-read";
+  btn.setAttribute("onclick", "toggleRead(this)")
   td.appendChild(btn);
 }
 
-function createTDDelete(tr) {
-  let td = document.createElement('td');
-  let btn = document.createElement('button');
+function createDeleteCell(tr) {
+  let td = document.createElement("td");
+  let btn = document.createElement("button");
   btn.textContent = "\u00D7";
   btn.className = "delete-book";
+  btn.setAttribute("onclick", "deleteRow(this)");
   td.appendChild(btn);
   tr.appendChild(td);
 }
 
-function UpdateDeleteRow() {
-  document.querySelectorAll('.delete-book').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      let tr = e.target.closest('tr');
-      table.removeChild(tr);
-    });
-  });
+function deleteRow(btn) {
+  let tr = btn.closest("tr");
+  table.removeChild(tr);
+}
+
+function toggleRead(btn) {
+  // change book instance
+  let tr = btn.closest("tr");
+  let index = tr.className.split("-")[1];
+  myLibrary[index].toggleRead();
+  // change table content
+  let span = btn.previousSibling;
+  span.textContent = myLibrary[index].read === true ? "Yes" : "No";
 }
 
 // EVENTS
 
-newBookBtn.addEventListener('click', () => {
+newBookBtn.addEventListener("click", () => {
   newBookForm.hidden ? newBookForm.hidden = false : newBookForm.hidden = true;
 });
 
@@ -98,3 +112,6 @@ addBookToLibrary(theHobbit);
 
 let theGodDelusion = new Book("The God Delusion", "Richard Dawkins", 463, false);
 addBookToLibrary(theGodDelusion);
+
+let pygmy = new Book("Pygmy", "Chuck Palahniuk", 241, false);
+addBookToLibrary(pygmy);

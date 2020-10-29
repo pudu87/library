@@ -1,4 +1,5 @@
 let myLibrary = [];
+let deletedBooks = [];
 
 // QUERY'S
 
@@ -6,6 +7,31 @@ const table = document.querySelector("table");
 const newBookBtn = document.querySelector(".new-book button");
 const newBookForm = document.querySelector(".new-book form");
 const newBookInput = document.querySelectorAll(".new-book input");
+
+// LOCAL STORAGE
+
+if(!localStorage.getItem("myLibrary")) { 
+  populateStorage(); 
+} else {
+  setLibrary();
+}
+
+function setLibrary() {
+  let tempLib = JSON.parse(localStorage.getItem("myLibrary")) || [];
+  tempLib.forEach(book => {
+    myLibrary.push(new Book(book.title, book.author, book.pages, book.read));
+  });
+  deletedBooks = JSON.parse(localStorage.getItem("deletedBooks")) || [];
+  deletedBooks.forEach(index => myLibrary.splice(index, 1));
+  deletedBooks = [];
+  createLibrary();
+}
+
+function populateStorage() {
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+  deletedBooks.sort((a, b) => { b - a });
+  localStorage.setItem("deletedBooks", JSON.stringify(deletedBooks));
+}
 
 // CONSTRUCTORS
 
@@ -42,12 +68,31 @@ function submitForm() {
   });
   input.pop();
   let book = new Book(...input);
+  myLibrary.push(book);
   addBookToLibrary(book);
+  populateStorage();
   return false;
 }
 
+function createLibrary() {
+  myLibrary.forEach(book => {
+    let tr = document.createElement("tr");
+    tr.className = `book-${myLibrary.indexOf(book)}`;
+    Object.keys(book).forEach(item => {
+      let td = document.createElement("td");
+      if (item == "read") {
+        createReadCell(book, item, td);
+      } else {
+        td.textContent = book[item];
+      }
+      tr.appendChild(td);
+    });
+    createDeleteCell(tr);
+    table.appendChild(tr);
+  });
+}
+
 function addBookToLibrary(book) {
-  myLibrary.push(book);
   let tr = document.createElement("tr");
   tr.className = `book-${myLibrary.length-1}`;
   Object.keys(book).forEach(item => {
@@ -87,13 +132,17 @@ function createDeleteCell(tr) {
 function deleteRow(btn) {
   let tr = btn.closest("tr");
   table.removeChild(tr);
+  // add deleted rows for local storage
+  deletedBooks.push(tr.className.split("-")[1]);
+  populateStorage();
 }
 
 function toggleRead(btn) {
-  // change book instance
   let tr = btn.closest("tr");
   let index = tr.className.split("-")[1];
+  // change book instance for local storage
   myLibrary[index].toggleRead();
+  populateStorage();
   // change table content
   let span = btn.previousSibling;
   span.textContent = myLibrary[index].read === true ? "Yes" : "No";
@@ -107,11 +156,11 @@ newBookBtn.addEventListener("click", () => {
 
 // PREPOPULATE
 
-let theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 309, true);
-addBookToLibrary(theHobbit);
+// let theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 309, true);
+// addBookToLibrary(theHobbit);
 
-let theGodDelusion = new Book("The God Delusion", "Richard Dawkins", 463, false);
-addBookToLibrary(theGodDelusion);
+// let theGodDelusion = new Book("The God Delusion", "Richard Dawkins", 463, false);
+// addBookToLibrary(theGodDelusion);
 
-let pygmy = new Book("Pygmy", "Chuck Palahniuk", 241, false);
-addBookToLibrary(pygmy);
+// let pygmy = new Book("Pygmy", "Chuck Palahniuk", 241, false);
+// addBookToLibrary(pygmy);

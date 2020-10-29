@@ -74,27 +74,9 @@ function submitForm() {
   return false;
 }
 
-function createLibrary() {
-  myLibrary.forEach(book => {
-    let tr = document.createElement("tr");
-    tr.className = `book-${myLibrary.indexOf(book)}`;
-    Object.keys(book).forEach(item => {
-      let td = document.createElement("td");
-      if (item == "read") {
-        createReadCell(book, item, td);
-      } else {
-        td.textContent = book[item];
-      }
-      tr.appendChild(td);
-    });
-    createDeleteCell(tr);
-    table.appendChild(tr);
-  });
-}
-
 function addBookToLibrary(book) {
   let tr = document.createElement("tr");
-  tr.className = `book-${myLibrary.length-1}`;
+  tr.className = `book-${myLibrary.indexOf(book)}`;
   Object.keys(book).forEach(item => {
     let td = document.createElement("td");
     if (item == "read") {
@@ -106,6 +88,10 @@ function addBookToLibrary(book) {
   });
   createDeleteCell(tr);
   table.appendChild(tr);
+}
+
+function createLibrary() {
+  myLibrary.forEach(book => addBookToLibrary(book));
 }
 
 function createReadCell(book, item, td) {

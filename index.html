@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>This is a website</title>
+    <title>Library</title>
 
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/main.css">
@@ -12,30 +12,41 @@
   <body>
     <div class="container">
       <h1>Welcome to the Library</h1>
-
-      <table>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Pages</th>
-          <th>Read?</th>
-          <th>Delete</th>
-        </tr>
-      </table>
+      
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Pages</th>
+              <th>Read?</th>
+              <th>Del</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Content added by script -->
+          </tbody>
+        </table>
+      </div>
 
       <div class="new-book">
-        <button type="button">New book</button>
+        <div>
+          <button type="button">Add book</button>
+        </div>
 
         <form onsubmit="return submitForm()" hidden>
-          <label for="title">Title:</label>
-          <input type="text" id="title" name="title"><br>
-          <label for="author">Author:</label>
-          <input type="text" id="author" name="author"><br>
-          <label for="pages">Pages:</label>
-          <input type="number" id="pages" name="pages" value="off"><br>
-          <label for="read">Read?</label>
-          <input type="checkbox" id="read" name="read"><br>
-          <input type="submit" value="Create Book">
+          <div class="input">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title">
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author">
+            <label for="pages">Pages:</label>
+            <input type="number" id="pages" name="pages" value="off">
+            <label for="read">Read?</label>
+            <input type="checkbox" id="read" name="read">
+          </div>
+            <input class="button" type="submit" value="Create Book">
         </form>
       </div>
     </div>

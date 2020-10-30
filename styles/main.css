@@ -1,35 +1,119 @@
+html > * {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 14px;
-  line-height: 1.5;
 }
 
 .container {
+  height: 100vh;
   width: 600px;
   margin: 0 auto;
   text-align: center;
+  background: linear-gradient(to bottom right, #fff, #ddd);
+  display: grid;
+  grid-template-rows: 10% 45% 45%;
 }
 
 h1 {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  align-self: center;
   font-size: 1.6em;
   font-weight: bold;
 }
 
-table {
-  width: 100%;
-  margin-bottom: 50px;
+.table {
+  padding: 0px 10px;
+  text-align: left;
+  overflow-y: auto;
 }
-table td {
+.table table {
+  width: 100%;
+  position: relative;
+}
+.table th {
+  padding: 0.8em 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.table th:last-child {
+  text-align: right;
+  padding-right: 1em;
+}
+.table td {
+  padding: 0.8em 1em;
+}
+.table thead {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(to right, #eee, #fff);
+}
+.table thead tr {
+  box-shadow: inset 0 -1px 0 #000000;
+}
+.table tbody tr {
   border-top: 1px solid #aaa;
+}
+.table tbody tr:first-child {
+  border: none;
+}
+.table td:last-child {
+  text-align: right;
 }
 
 .new-book {
-  margin-top: 30px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 300px;
+  align-items: center;
 }
-.new-book form > * {
-  margin-bottom: 1em;
+.new-book button {
+  padding: 0.8em;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.new-book form {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+}
+.new-book .input {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: repeat(4, 50px);
+  align-items: center;
+  font-family: Helvetica, sans-serif;
+  font-size: 1.1em;
+}
+.new-book input[type=checkbox] {
+  justify-self: start;
+}
+.new-book input[type=submit] {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  font-weight: bold;
+}
+
+button,
+.button {
+  padding: 0.3em;
+  background-color: #fff;
+  border: 2px outset #999;
+  border-radius: 5px;
+}
+
+button:hover,
+.button:hover {
+  background-color: #eee;
+}
+
+button:active,
+.button:active {
+  border-style: inset;
+  background-color: #ddd;
 }
 
 /*# sourceMappingURL=main.css.map */

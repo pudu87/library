@@ -1,29 +1,111 @@
+html > * {
+  box-sizing: border-box;
+}
 body {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 14px;
-  line-height: 1.5;
 }
 .container {
+  height: 100vh;
   width: 600px;
   margin: 0 auto;
   text-align: center;
+  background: linear-gradient(to bottom right, #fff, #ddd);
+  display: grid;
+  grid-template-rows: 10% 45% 45%;
 }
 h1 {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  align-self: center;
   font-size: 1.6em;
   font-weight: bold;
 }
-table {
-  width: 100%;
-  margin-bottom: 50px;
+.table {
+  padding: 0px 10px;
+  text-align: left;
+  overflow-y: auto;
+  table {
+    width: 100%;
+    position: relative;
+  }
+  th {
+    padding: .8em 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  th:last-child {
+    text-align: right;
+    padding-right: 1em;
+  }
   td {
-  border-top: 1px solid #aaa;
+    padding: .8em 1em;
+  }
+  thead {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(to right, #eee, #fff);
+    tr {
+      box-shadow: inset 0 -1px 0 #000000;
+    }
+  }
+  tbody {
+    tr {
+      border-top: 1px solid #aaa;
+    }
+    tr:first-child {
+      border: none;
+    }
+  }
+  td:last-child {
+    text-align: right;
   }
 }
 .new-book {
-  margin-top: 30px;
-  form > * {
-  margin-bottom: 1em;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 300px;
+  align-items: center;
+  button {
+    padding: .8em;
+    font-size: 1.2em;
+    font-weight: bold;
   }
+  form {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+  }
+  .input {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows:repeat(4, 50px);
+    align-items: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 1.1em;
+  }
+  input[type="checkbox"] {
+    justify-self: start;
+  }
+  input[type="submit"] {
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    font-weight: bold;
+  }
+}
+button,
+.button {
+  padding: .3em;
+  background-color: #fff;
+  border: 2px outset #999;
+  border-radius: 5px;
+}
+button:hover,
+.button:hover {
+  background-color: #eee;
+}
+button:active,
+.button:active {
+  border-style: inset;
+  background-color: #ddd;
 }

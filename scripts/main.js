@@ -3,7 +3,7 @@ let deletedBooks = [];
 
 // QUERY'S
 
-const table = document.querySelector("table");
+const table = document.querySelector("tbody");
 const newBookBtn = document.querySelector(".new-book button");
 const newBookForm = document.querySelector(".new-book form");
 const newBookInput = document.querySelectorAll(".new-book input");
@@ -95,11 +95,8 @@ function createLibrary() {
 }
 
 function createReadCell(book, item, td) {
-  let span = document.createElement("span");
-  span.textContent = book[item] === true ? "Yes" : "No";
-  td.appendChild(span);
   let btn = document.createElement("button");
-  btn.textContent = "change";
+  btn.textContent = book[item] === true ? "Yes" : "No";
   btn.className = "toggle-read";
   btn.setAttribute("onclick", "toggleRead(this)")
   td.appendChild(btn);
@@ -130,8 +127,7 @@ function toggleRead(btn) {
   myLibrary[index].toggleRead();
   populateStorage();
   // change table content
-  let span = btn.previousSibling;
-  span.textContent = myLibrary[index].read === true ? "Yes" : "No";
+  btn.textContent = myLibrary[index].read === true ? "Yes" : "No";
 }
 
 // EVENTS

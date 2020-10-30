@@ -8,6 +8,26 @@ const newBookBtn = document.querySelector(".new-book button");
 const newBookForm = document.querySelector(".new-book form");
 const newBookInput = document.querySelectorAll(".new-book input");
 
+// CONSTRUCTORS
+
+function Book(title, author, pages, read) {
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+}
+
+Book.prototype = {
+  constructor: Book,
+  showInfo: function() {
+    let readInfo = this.read === true ? "already read" : "not read yet";
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.readInfo}.`;
+  },
+  toggleRead: function() {
+    this.read = this.read === true ? false : true;
+  }
+}
+
 // LOCAL STORAGE
 
 if(!localStorage.getItem("myLibrary")) { 
@@ -32,26 +52,6 @@ function populateStorage() {
   deletedBooks.sort((a, b) => { b - a });
   localStorage.setItem("deletedBooks", JSON.stringify(deletedBooks));
 }
-
-// CONSTRUCTORS
-
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-Book.prototype = {
-  constructor: Book,
-  showInfo: function() {
-    let readInfo = this.read === true ? "already read" : "not read yet";
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.readInfo}.`;
-  },
-  toggleRead: function() {
-    this.read = this.read === true ? false : true;
-  }
-};
 
 // FUNCTIONS
 
